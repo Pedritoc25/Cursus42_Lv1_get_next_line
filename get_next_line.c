@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/05/08 14:57:12 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:31:44 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 char	*get_next_line(int fd)
 {
-	char	*p_buffer;
-	char	bytes;
+	char		*p_buffer;
+	ssize_t		bytes;
+	int			i;
+	static char	*still;
 
-	p_buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE);
-	if (!p_buffer || BUFFER_SIZE < 0)
-	{
-		return (-1);
-	}
+	i = 0;
+	if (BUFFER_SIZE <= 0 || fd < 0)
+		return (NULL);
+	p_buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!p_buffer)
+		return (NULL);
 	bytes = read(fd, p_buffer, BUFFER_SIZE);
-	printf("%s", p_buffer); //BORRAR
+	p_buffer[bytes] = '\0';
+	free(p_buffer);
 	return (bytes);
-
-	/*buffer malloc = buffersize;
-	bucle hasta 0 read	(fd, buf, 42);
-	guardar lectura en variable statica;*/
 }
 
 int	main(void)

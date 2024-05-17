@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:48:23 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/05/09 12:51:04 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:26:55 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,46 +23,19 @@ size_t	ft_strlen(char *s)
 	return (len);
 }
 
-//duplicate a string
-char	*ft_strdup(char *s)
+//allocate and free dynamic memory
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*s2;
-	size_t	i;
-	size_t	len;
+	size_t	total_bytes;
+	void	*result;
 
-	i = 0;
-	len = ft_strlen(s);
-	s2 = (char *)malloc((len + 1) * sizeof(char));
-	if (s2 == NULL)
+	if (size != 0 && nmemb > (SIZE_MAX / size))
 		return (NULL);
-	while (i < len)
-	{
-		s2[i] = s[i];
-		i++;
-	}
-	s2[i] = '\0';
-	return (s2);
-}
-
-//removes "set" characters from the beginning and end of string
-char	*ft_strtrim(char *s1, char *set)
-{
-	size_t	len;
-	size_t	i;
-
-	i = 0;
-	if (!s1 || !set)
-		return (NULL);
-	len = ft_strlen(s1);
-	if (s1[0] != '\0')
-	{
-		while (ft_strchr(set, s1[i]) != 0)
-			i++;
-		while (ft_strrchr(set, s1[len]) != 0)
-			len--;
-		return (ft_substr(s1, i, (len - i) + 1));
-	}
-	return (ft_strdup(s1));
+	total_bytes = nmemb * size;
+	result = malloc(total_bytes);
+	if (result != NULL)
+		ft_bzero(result, total_bytes);
+	return (result);
 }
 
 //locate a substring in a string
@@ -82,4 +55,46 @@ char	*ft_strchr(char *s, int c)
 		i++;
 	}
 	return (NULL);
+}
+
+static char	*ft_mystrcat(const char *dst, const char *src)
+{
+	size_t	i;
+	char	*s;
+	size_t	s_len;
+
+	s = (char *)ft_calloc((ft_strlen(dst) + ft_strlen(src) + 1), sizeof(char));
+	if (!s)
+	{
+		return (NULL);
+	}
+	i = 0;
+	s_len = 0;
+	while (dst[i] != '\0')
+	{
+		s[i] = dst[i];
+		i++;
+	}
+	s_len = ft_strlen(s);
+	i = 0;
+	while (src[i] != '\0')
+	{
+		s[s_len + i] = src[i];
+		i++;
+	}
+	return (s);
+}
+
+//combine elements
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*s;
+
+	if (!s1 || !s2)
+		return (NULL);
+	s = ft_mystrcat(s1, s2);
+	if (s == NULL)
+		return (NULL);
+	else
+		return ((char *)s);
 }

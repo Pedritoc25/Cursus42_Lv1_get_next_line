@@ -1,3 +1,5 @@
-TEXTO:HEYA
-7778
-77777777
+Necromancy spells are those that can manipulate life itself.
+As this is a somewhat broad umbrella, the Necromancy school is quite varied, featuring spells that can raise the dead or deal serious damage to one's enemies.
+In regards to magic capable of raising the dead, spells like Revivify and Raise Dead can bring a creature back from the dead, good as new, while spells like Animate Dead and Danse Macabre can be used to create undead.
+Due to the life-manipulating nature of this school, nearly each of its damaging spells deals necrotic damage.
+It should also be noted that this school is home to effects that can plague another creature with detrimental effects such as Blindness/Deafness, Bestow Curse, and Ray of Enfeeblement.

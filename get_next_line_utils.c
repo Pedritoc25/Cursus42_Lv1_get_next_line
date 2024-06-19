@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:48:23 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/05/17 12:26:55 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/06/19 13:01:17 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,25 @@ size_t	ft_strlen(char *s)
 //allocate and free dynamic memory
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t	total_bytes;
-	void	*result;
+	size_t			total_bytes;
+	void			*result;
+	size_t			i;
+	unsigned char	*uc;
 
-	if (size != 0 && nmemb > (SIZE_MAX / size))
+	if (size != 0 && nmemb > (__SIZE_MAX__ / size))
 		return (NULL);
 	total_bytes = nmemb * size;
 	result = malloc(total_bytes);
 	if (result != NULL)
-		ft_bzero(result, total_bytes);
+	{
+		i = 0;
+		uc = (unsigned char *)result;
+		while (i < total_bytes)
+		{
+			uc[i] = '\0';
+			i++;
+		}
+	}
 	return (result);
 }
 
@@ -57,44 +67,61 @@ char	*ft_strchr(char *s, int c)
 	return (NULL);
 }
 
-static char	*ft_mystrcat(const char *dst, const char *src)
+//combine elements
+char	*ft_strjoin(char const *dst, char const *src)
 {
 	size_t	i;
 	char	*s;
 	size_t	s_len;
 
+	if (!dst || !src)
+		return (NULL);
 	s = (char *)ft_calloc((ft_strlen(dst) + ft_strlen(src) + 1), sizeof(char));
 	if (!s)
-	{
 		return (NULL);
-	}
 	i = 0;
-	s_len = 0;
 	while (dst[i] != '\0')
 	{
 		s[i] = dst[i];
 		i++;
 	}
-	s_len = ft_strlen(s);
-	i = 0;
-	while (src[i] != '\0')
+	while (*src != '\0')
 	{
-		s[s_len + i] = src[i];
+		s[i] = *src;
 		i++;
+		src++;
 	}
-	return (s);
-}
-
-//combine elements
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*s;
-
-	if (!s1 || !s2)
-		return (NULL);
-	s = ft_mystrcat(s1, s2);
 	if (s == NULL)
 		return (NULL);
 	else
 		return ((char *)s);
+}
+
+//copy memory area and prevents overlapping
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	size_t			i;
+	unsigned char	*uc_dest;
+
+	i = 0;
+	uc_dest = (unsigned char *)dest;
+	if (!(dest || src))
+		return (NULL);
+	if (uc_dest <= (unsigned char *)src || uc_dest >= (unsigned char *)src + n)
+	{
+		while (i < n)
+		{
+			uc_dest[i] = ((unsigned char *)src)[i];
+			i++;
+		}
+	}
+	else
+	{
+		while (n > 0)
+		{
+			n--;
+			uc_dest[n] = ((unsigned char *)src)[n];
+		}
+	}
+	return (dest);
 }

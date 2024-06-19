@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/05/17 12:49:31 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:03:31 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ char	*get_next_line(int fd)
 	{
 		bytes = read(fd, p_buffer, BUFFER_SIZE);
 		if(statica == NULL)
-			stta = calloc(1)
-		tem = Sta
+			statica = calloc(1)
+		tem = Statica
 		sta = strjoin(tem, buf)
 		free temp
 		tem = NULL

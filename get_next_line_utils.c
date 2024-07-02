@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:48:23 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/06/19 13:01:17 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:47:45 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,10 @@ char	*ft_strchr(char *s, int c)
 }
 
 //combine elements
-char	*ft_strjoin(char const *dst, char const *src)
+char	*ft_strjoin(char *dst, char *src)
 {
 	size_t	i;
 	char	*s;
-	size_t	s_len;
 
 	if (!dst || !src)
 		return (NULL);

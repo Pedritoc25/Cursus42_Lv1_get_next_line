@@ -6,52 +6,68 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/06/19 10:03:31 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:41:26 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+/*
+bytes es el numero de caracteres que se leen en una pasada
+line es el texto que devuelve getNextLine
+buffer_text es el buffer, donde se encuentra lo que has leido del fd
+stable es la variable estática
+temp es la variable temporal
+*/
+
 char	*get_next_line(int fd)
 {
-	char		*p_buffer;
-	char		*line;
+	char		*buffer_text;
+	char		*line = NULL;
+	char		*temp = NULL;
 	ssize_t		bytes;
-	static char	*still;
+	static char	*stable;
 
-	i = 0;
-	p_buffer = NULL;
+	buffer_text = NULL;
 	bytes = 1;
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	p_buffer = (char *)ft_calloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!p_buffer)
+	buffer_text = (char *)ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
+	if (!buffer_text)
 		return (NULL);
 	while (bytes > 0)
 	{
-		bytes = read(fd, p_buffer, BUFFER_SIZE);
-		if(statica == NULL)
-			statica = calloc(1)
-		tem = Statica
-		sta = strjoin(tem, buf)
-		free temp
-		tem = NULL
+		temp = ft_calloc(1, sizeof(char));
+		bytes = read(fd, buffer_text, BUFFER_SIZE);
+		if(stable == NULL)
+			stable = ft_calloc(1, sizeof(char));
+		//buscar '\n' en stable
+		if (ft_strchr(stable, '\n'))
+		{
+			temp = ft_strchr(stable, '\n');
+			line = stable;
+		}
+		else
+			stable = ft_strjoin(stable, buffer_text);
+		//temp = stable;
+		//stable = strjoin(temp, buffer_text);
+		stable = temp;
 		//si te devuelve puntero, para
-		ft_strchr(p_buffer, '\n');
+		free (temp);
 	}
-	free(p_buffer);
-	p_buffer = NULL;
+	free(buffer_text);
+	buffer_text = NULL;
 	return (line);
 }
 
 int	main(void) //COMENTAR
 {
 	int		fd;
-	int		line;
+	//int		line;
 
-	fd = open("prueba.txt", O_RDONLY | O_CREAT, 0666);
-	line = get_next_line(fd);
-	printf("\n%i", line); //BORRAR
+	fd = open("prueba.txt", O_RDONLY);
+	get_next_line(fd);
+//	printf("\n%i", line); //BORRAR
 	close(fd);
 	return (0);
 }

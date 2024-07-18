@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/07/16 13:05:54 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:26:05 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ temp es la variable temporal para liberar la estatica cuando hga strjoin
 char	*get_next_line(int fd)
 {
 	char		*buffer_text;
-	char		*line = NULL;
-	char		*temp = NULL;
-	ssize_t		bytes;
+	char		*line;
+	char		*temp;
+	size_t		bytes;
 	static char	*stable;
 
 	buffer_text = NULL;
@@ -51,15 +51,13 @@ char	*get_next_line(int fd)
 			line = ft_substr(stable, 0, ft_strchr(stable, '\n') - stable + 1);
 			
 			//recortar estatica
-			stable = subtring (stable, len line, len stable - len line);
+			stable = ft_substr (stable, ft_strlen(line), ft_strlen(stable) - ft_strlen(line));
 			
 			break;
 		}
-		//temp = stable;
-		//stable = strjoin(temp, buffer_text);
-		//si te devuelve puntero, para
-		free (temp);
 	}
+	free (temp);
+	temp = NULL;
 	free(buffer_text);
 	buffer_text = NULL;
 	return (line);

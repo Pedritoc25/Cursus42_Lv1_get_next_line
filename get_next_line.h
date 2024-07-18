@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:33 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/07/02 19:59:31 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:56:32 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 4
 # endif
 
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <stddef.h>
 # include <stdio.h> //BORRAR
 
 char	*get_next_line(int fd);
@@ -32,7 +33,6 @@ char	*ft_strchr(char *s, int c);
 
 char	*ft_strjoin(char *dst, char *src);
 
-void	*ft_memmove(void *dest, const void *src, size_t n);
-
+char	*ft_substr(char *s, unsigned int start, size_t len);
 
 #endif

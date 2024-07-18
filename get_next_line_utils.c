@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:48:23 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/07/02 18:47:45 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:56:07 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,31 +96,31 @@ char	*ft_strjoin(char *dst, char *src)
 		return ((char *)s);
 }
 
-//copy memory area and prevents overlapping
-void	*ft_memmove(void *dest, const void *src, size_t n)
+//returns a substring
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
-	size_t			i;
-	unsigned char	*uc_dest;
+	size_t	i;
+	char	*temp;
 
 	i = 0;
-	uc_dest = (unsigned char *)dest;
-	if (!(dest || src))
+	if (!s)
 		return (NULL);
-	if (uc_dest <= (unsigned char *)src || uc_dest >= (unsigned char *)src + n)
+	if (!*s || start >= ft_strlen(s))
 	{
-		while (i < n)
-		{
-			uc_dest[i] = ((unsigned char *)src)[i];
-			i++;
-		}
+		temp = (char *)ft_calloc(1, sizeof(char));
+		if (temp == NULL)
+			return (NULL);
+		return (temp);
 	}
-	else
+	if (len > ft_strlen(s + start))
+		len = ft_strlen(s + start);
+	temp = (char *)ft_calloc(len + 1, sizeof(char));
+	if (temp == NULL)
+		return (NULL);
+	while (i < len && s[start + i] != '\0')
 	{
-		while (n > 0)
-		{
-			n--;
-			uc_dest[n] = ((unsigned char *)src)[n];
-		}
+		temp[i] = s[start + i];
+		i++;
 	}
-	return (dest);
+	return (temp);
 }

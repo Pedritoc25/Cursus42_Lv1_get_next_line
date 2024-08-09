@@ -6,54 +6,68 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/07/18 12:26:05 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/08/05 10:28:02 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 /*
-bytes es el numero de caracteres que se leen en una pasada
+bytes_read es el numero de caracteres que se leen en una pasada
 line es el texto que devuelve getNextLine
 buffer_text es el buffer, donde se encuentra lo que has leido del fd
 stable es la variable estática
 temp es la variable temporal para liberar la estatica cuando hga strjoin
 */
 
+char	*leyendo(int fd, char *static)
+{
+	
+}
+
 char	*get_next_line(int fd)
 {
 	char		*buffer_text;
 	char		*line;
 	char		*temp;
-	size_t		bytes;
+	size_t		bytes_read;
 	static char	*stable;
 
-	buffer_text = NULL;
-	bytes = 1;
+
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
+
+	stable = leyendo(fd, stable);
+	if (!stable)
+		return (NULL);
+	
 	buffer_text = (char *)ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
 	if (!buffer_text)
 		return (NULL);
-	while (bytes > 0)
+	bytes_read = 1;
+	while (bytes_read > 0)
 	{
-		bytes = read(fd, buffer_text, BUFFER_SIZE);
-		if(stable == NULL)
-			stable = ft_calloc(1, sizeof(char*));
-		//buscar '\n' en stable
+		bytes_read = read(fd, buffer_text, BUFFER_SIZE);
+		if (bytes_read <= 0)
+		{
+			if (stable)
+			{
+				line = stable;
+				free(stable);
+			}
+			break ;
+		}
 		temp = stable;
 		stable = ft_strjoin(stable, buffer_text);
 		free(temp);
 		temp = stable;
 		if (ft_strchr(stable, '\n'))
 		{
-			//funcion substr
-			line = ft_substr(stable, 0, ft_strchr(stable, '\n') - stable + 1);
-			
-			//recortar estatica
-			stable = ft_substr (stable, ft_strlen(line), ft_strlen(stable) - ft_strlen(line));
-			
-			break;
+			line = ft_substr(stable, 0, ft_strchr(stable, '\n')
+					- stable + 1);
+			stable = ft_substr (stable, ft_strlen(line), ft_strlen(stable)
+					- ft_strlen(line));
+			break ;
 		}
 	}
 	free (temp);

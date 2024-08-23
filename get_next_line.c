@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/08/05 10:28:02 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/08/23 20:19:09 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,62 +20,86 @@ stable es la variable estática
 temp es la variable temporal para liberar la estatica cuando hga strjoin
 */
 
-char	*leyendo(int fd, char *static)
+char	*trim_static(char *stable, char *line)
 {
-	
+	char	*new_stable;
+
+	if (!stable || !line)
+		return (NULL);
+	new_stable = ft_substr(stable, ft_strlen(line), ft_strlen(stable)
+			- ft_strlen(line));
+	free (stable);
+	stable = NULL;
+	return (new_stable);
 }
 
-char	*get_next_line(int fd)
+char	*read_text(int fd, char *buffer_text, char *stable)
 {
-	char		*buffer_text;
-	char		*line;
-	char		*temp;
-	size_t		bytes_read;
-	static char	*stable;
+	char	*temp;
+	size_t	bytes_read;
 
-
-	if (BUFFER_SIZE <= 0 || fd < 0)
-		return (NULL);
-
-	stable = leyendo(fd, stable);
-	if (!stable)
-		return (NULL);
-	
-	buffer_text = (char *)ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
-	if (!buffer_text)
-		return (NULL);
 	bytes_read = 1;
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer_text, BUFFER_SIZE);
 		if (bytes_read <= 0)
 		{
-			if (stable)
-			{
-				line = stable;
-				free(stable);
-			}
-			break ;
+			if (stable[0] != '\0')
+				return (stable);
+			return (free(stable), NULL);
 		}
+		buffer_text[bytes_read] = '\0';
 		temp = stable;
 		stable = ft_strjoin(stable, buffer_text);
 		free(temp);
-		temp = stable;
+		temp = NULL;
+		if (!stable)
+			return (NULL);
 		if (ft_strchr(stable, '\n'))
-		{
-			line = ft_substr(stable, 0, ft_strchr(stable, '\n')
-					- stable + 1);
-			stable = ft_substr (stable, ft_strlen(line), ft_strlen(stable)
-					- ft_strlen(line));
 			break ;
-		}
 	}
-	free (temp);
-	temp = NULL;
-	free(buffer_text);
+	return (stable);
+}
+
+char	*shape_line(char *stable)
+{
+	char	*temp;
+	size_t	i;
+
+	i = 0;
+	while (stable[i] != '\n' && stable[i] != '\0')
+		i++;
+	if (i > 0)
+		temp = ft_substr(stable, 0, &stable[i] - stable + 1);
+	else
+		temp = (ft_substr(stable, 0, ft_strlen(stable)));
+	return (temp);
+}
+
+char	*get_next_line(int fd)
+{
+	char		*buffer_text;
+	char		*line;
+	static char	*stable;
+
+	if (BUFFER_SIZE <= 0 || fd < 0)
+		return (NULL);
+	buffer_text = (char *)ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
+	if (!buffer_text)
+		return (NULL);
+	if (!ft_strchr(stable, '\n'))
+		stable = read_text(fd, buffer_text, stable);
+	if (!stable)
+		return (free(buffer_text), NULL);
+	line = shape_line(stable);
+	if (!line)
+		return (free(buffer_text), NULL);
+	stable = trim_static(stable, line);
+	free (buffer_text);
 	buffer_text = NULL;
 	return (line);
 }
+
 
 int	main(void) //COMENTAR
 {
@@ -85,12 +109,12 @@ int	main(void) //COMENTAR
 	fd = open("prueba.txt", O_RDONLY);
 	while (1)
 	{
-	line = get_next_line(fd);
-	printf("\n%s", line);
-	if (!line)
-		break ;
-	free (line);
-	line = NULL;
+		line = get_next_line(fd);
+		printf("%s", line);
+		if (!line)
+			break ;
+		free (line);
+		line = NULL;
 	}
  //BORRAR
 	close(fd);

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/08/26 11:04:09 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/08/26 11:03:45 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 /*
 bytes_read es el numero de caracteres que se leen en una pasada
@@ -82,43 +82,54 @@ char	*get_next_line(int fd)
 {
 	char		*buffer_text;
 	char		*line;
-	static char	*stable;
+	static char	*stable[_SC_OPEN_MAX];
 
-	if (BUFFER_SIZE <= 0 || fd < 0)
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= _SC_OPEN_MAX)
 		return (NULL);
 	buffer_text = (char *)ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
 	if (!buffer_text)
 		return (NULL);
-	if (!ft_strchr(stable, '\n'))
-		stable = read_text(fd, buffer_text, stable);
-	if (!stable)
+	if (!ft_strchr(stable[fd], '\n'))
+		stable[fd] = read_text(fd, buffer_text, stable[fd]);
+	if (!stable[fd])
 		return (free(buffer_text), NULL);
-	line = shape_line(stable);
+	line = shape_line(stable[fd]);
 	if (!line)
 		return (free(buffer_text), NULL);
-	stable = trim_static(stable, line);
+	stable[fd] = trim_static(stable[fd], line);
 	free (buffer_text);
 	buffer_text = NULL;
 	return (line);
 }
-/*
-#include <fcntl.h>
+/*#include <fcntl.h>
 #include <stdio.h>
-int	main(void)
-{
-	int		fd;
-	char	*line;
 
-	fd = open("prueba.txt", O_RDONLY);
-	while (1)
+int main(int argc, char **argv)
+{
+	int	fd;
+	char	*line;
+	int	l;
+
+	
+	for (int i = 1; i < argc; i++)
 	{
-		line = get_next_line(fd);
-		printf("%s", line);
-		if (!line)
-			break ;
-		free (line);
-		line = NULL;
+		fd = open(argv[i], O_RDONLY);
+		if (fd == -1)
+			return (0);
+		l = 1;
+		printf("Get_Next_Line de: %s \n", argv[i]);
+		while (1)
+		{
+			line = get_next_line(fd);
+			if (!line)
+			{
+				printf("Fin del fichero\n");
+				break;
+			}
+			printf("[%d]: %s", l, line);
+			l++;
+		}
+		close(fd);
 	}
-	close(fd);
 	return (0);
 }*/

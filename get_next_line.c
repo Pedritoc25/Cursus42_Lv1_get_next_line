@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/08/26 11:04:09 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/08/26 13:12:01 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*read_text(int fd, char *buffer_text, char *stable)
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer_text, BUFFER_SIZE);
-		if (bytes_read <= 0)
+		if (bytes_read <= 0 && stable)
 		{
 			if (stable[0] != '\0')
 				return (stable);
@@ -101,9 +101,8 @@ char	*get_next_line(int fd)
 	buffer_text = NULL;
 	return (line);
 }
-/*
-#include <fcntl.h>
-#include <stdio.h>
+
+/*#include <stdio.h>
 int	main(void)
 {
 	int		fd;

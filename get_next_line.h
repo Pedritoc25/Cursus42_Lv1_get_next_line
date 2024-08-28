@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:33 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/08/26 13:05:02 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:13:14 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 6
+#  define BUFFER_SIZE 42
 # endif
 
 # include <unistd.h>

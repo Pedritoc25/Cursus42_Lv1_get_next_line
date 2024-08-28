@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:48:23 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/08/05 10:13:50 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:14:02 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,31 +93,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	str[i] = '\0';
 	return (str);
 }
-// char	*ft_strjoin(char *dst, char *src)
-// {
-// 	size_t	i;
-// 	char	*s;
-
-// 	s = (char *)ft_calloc((ft_strlen(dst) + ft_strlen(src) + 1), sizeof(char));
-// 	if (!s)
-// 		return (NULL);
-// 	i = 0;
-// 	while (dst[i] != '\0')
-// 	{
-// 		s[i] = dst[i];
-// 		i++;
-// 	}
-// 	while (*src != '\0')
-// 	{
-// 		s[i] = *src;
-// 		i++;
-// 		src++;
-// 	}
-// 	if (s == NULL)
-// 		return (NULL);
-// 	else
-// 		return ((char *)s);
-// }
 
 // returns a substring
 char	*ft_substr(char *s, unsigned int start, size_t len)

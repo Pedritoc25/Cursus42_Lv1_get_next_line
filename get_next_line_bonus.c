@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/08/28 10:13:37 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/08/28 12:05:59 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*read_text(int fd, char *buffer_text, char *stable)
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer_text, BUFFER_SIZE);
-		if (bytes_read <= 0 && stable)
+		if (bytes_read <= 0 || stable)
 		{
 			if (stable[0] != '\0')
 				return (stable);

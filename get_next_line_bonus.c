@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/08/28 12:05:59 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/09/02 10:08:51 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ char	*get_next_line(int fd)
 	buffer_text = (char *)ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
 	if (!buffer_text)
 		return (NULL);
+	if (!stable[fd])
+		stable[fd] = (char *)ft_calloc(sizeof(char), 1);
 	if (!ft_strchr(stable[fd], '\n'))
 		stable[fd] = read_text(fd, buffer_text, stable[fd]);
 	if (!stable[fd])

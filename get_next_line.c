@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/08/28 12:04:04 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/09/02 10:06:51 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ char	*get_next_line(int fd)
 	buffer_text = (char *)ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
 	if (!buffer_text)
 		return (NULL);
+	if (!stable)
+		stable = (char *)ft_calloc(sizeof(char), 1);
 	if (!ft_strchr(stable, '\n'))
 		stable = read_text(fd, buffer_text, stable);
 	if (!stable)
@@ -102,7 +104,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-/*#include <stdio.h>
+#include <stdio.h>
 int	main(void)
 {
 	int		fd;
@@ -120,4 +122,4 @@ int	main(void)
 	}
 	close(fd);
 	return (0);
-}*/
+}

@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/09/02 10:06:51 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/09/03 17:34:23 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-#include <stdio.h>
+/*#include <stdio.h>
 int	main(void)
 {
 	int		fd;
@@ -122,4 +122,4 @@ int	main(void)
 	}
 	close(fd);
 	return (0);
-}
+}*/

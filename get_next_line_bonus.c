@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/09/03 17:34:03 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:30:53 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ char	*trim_static(char *stable, char *line)
 char	*read_text(int fd, char *buffer_text, char *stable)
 {
 	char	*temp;
-	size_t	bytes_read;
+	ssize_t	bytes_read;
 
 	bytes_read = 1;
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer_text, BUFFER_SIZE);
-		if (bytes_read <= 0 || stable)
+		if (bytes_read <= 0 || !stable)
 		{
 			if (stable[0] != '\0')
 				return (stable);

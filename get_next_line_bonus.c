@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/09/06 11:30:53 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:49:36 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,12 @@ int main(int argc, char **argv)
 			if (!line)
 			{
 				printf("Fin del fichero\n");
+				free(line);
 				break;
 			}
 			printf("[%d]: %s", l, line);
 			l++;
+			free(line);
 		}
 		close(fd);
 	}

@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/09/11 12:49:36 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:34:18 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ char	*get_next_line(int fd)
 {
 	char		*buffer_text;
 	char		*line;
-	static char	*stable[_SC_OPEN_MAX];
+	static char	*stable[256];
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= _SC_OPEN_MAX)
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= 256)
 		return (NULL);
 	buffer_text = (char *)ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
 	if (!buffer_text)
@@ -111,8 +111,6 @@ int main(int argc, char **argv)
 	int	fd;
 	char	*line;
 	int	l;
-
-	
 	for (int i = 1; i < argc; i++)
 	{
 		fd = open(argv[i], O_RDONLY);

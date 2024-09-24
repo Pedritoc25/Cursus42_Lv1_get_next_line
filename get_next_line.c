@@ -6,7 +6,7 @@
 /*   By: pcabanas <pcabanas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:53:44 by pcabanas          #+#    #+#             */
-/*   Updated: 2024/09/11 12:41:27 by pcabanas         ###   ########.fr       */
+/*   Updated: 2024/09/24 09:22:24 by pcabanas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,12 @@ char	*get_next_line(int fd)
 
 /*#include <fcntl.h>
 #include <stdio.h>
-int	main(void)
+int	main(int argc, char **argv)
 {
 	int		fd;
 	char	*line;
 
-	fd = open("prueba3.txt", O_RDONLY);
+	fd = open(argv[1], O_RDONLY);
 	while (1)
 	{
 		line = get_next_line(fd);
